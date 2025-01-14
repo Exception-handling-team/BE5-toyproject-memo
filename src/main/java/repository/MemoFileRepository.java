@@ -86,7 +86,6 @@ public class MemoFileRepository {
 
     public void deleteById(int id) {
         if (!isFileExists(id)) {
-            System.out.println("잘못된 id입니다: " + id);
             return;
         }
 
@@ -101,7 +100,6 @@ public class MemoFileRepository {
 
     public Memo findById(int id) {
         if (!isFileExists(id)) {
-            System.out.println("잘못된 id입니다: " + id);
             return null;
         }
 

@@ -1,6 +1,5 @@
 package app;
 
-import java.nio.file.NoSuchFileException;
 import java.util.Scanner;
 
 public class MemoController {
@@ -30,51 +29,62 @@ public class MemoController {
         });
     }
 
-
-
     public void write() {
         System.out.println("제목 : ");
         String title = sc.nextLine();
         System.out.println("내용 : ");
         String content = sc.nextLine();
         memoService.write(title, content);
-
-
+        System.out.println("메모가 성공적으로 작성되었습니다.");
     }
 
     public void delete() {
-        int id = getValidId("삭제할 메모 번호 : ");
-        memoService.delete(id);
+        while (true) {
+            int id = getValidId("삭제할 메모 번호 : ");
+            Memo memo = memoService.read(id);
+            if (memo != null) {
+                memoService.delete(id);
+                System.out.println("메모가 성공적으로 삭제되었습니다.");
+                break;
+            } else {
+                System.out.println("해당 번호의 메모가 존재하지 않습니다. 다시 입력해주세요.");
+            }
+        }
     }
 
     public void exit() {
-
+        System.out.println("프로그램을 종료합니다.");
     }
 
-
     public void modify() {
-        int id = getValidId("수정할 메모 번호 : ");
-        System.out.println("제목 : ");
-        String title = sc.nextLine();
-        System.out.println("내용 : ");
-        String content = sc.nextLine();
-        memoService.modify(id, title, content);
+        while (true) {
+            int id = getValidId("수정할 메모 번호 : ");
+            Memo memo = memoService.read(id);
+            if (memo != null) {
+                System.out.println("새 제목 : ");
+                String title = sc.nextLine();
+                System.out.println("새 내용 : ");
+                String content = sc.nextLine();
+                memoService.modify(id, title, content);
+                System.out.println("메모가 성공적으로 수정되었습니다.");
+                break;
+            } else {
+                System.out.println("해당 번호의 메모가 존재하지 않습니다. 다시 입력해주세요.");
+            }
+        }
     }
 
     public void read() {
-        int id = getValidId("읽을 메모 번호 : ");
-        while(true){
-            try{
-                Memo memo = memoService.read(id);
+        while (true) {
+            int id = getValidId("읽을 메모 번호 : ");
+            Memo memo = memoService.read(id);
+            if (memo != null) {
                 System.out.println("제목 : " + memo.getTitle());
                 System.out.println("내용 : " + memo.getContent());
                 break;
-            } catch (RuntimeException e) {
-                System.out.println(e.getMessage());
-                break;
+            } else {
+                System.out.println("해당 번호의 메모가 존재하지 않습니다. 다시 입력해주세요.");
             }
         }
-
-
     }
 }

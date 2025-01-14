@@ -32,8 +32,8 @@ public class MemoService {
 
     public Memo read(int id) {
         Memo memo = memoRepository.findById(id);
-        if (memo == null) { // 메모가 없는 경우 처리
-            throw new IllegalArgumentException("해당 번호의 메모가 존재하지 않습니다.");
+        if (memo == null) { // 메모가 없는 경우
+            return null; // 예외를 던지지 않고 null 반환
         }
         return memo;
     }
