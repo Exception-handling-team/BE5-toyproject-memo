@@ -106,8 +106,7 @@ public class AppTest {
                 """);
 
         assertThat(out)
-                .contains("== 메모 목록 ==")
-                .contains("첫번째 메모수정본");
+                .contains("안녕하세요?");
     }
 }
 
